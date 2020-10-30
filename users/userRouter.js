@@ -32,7 +32,7 @@ router.delete('/:id', (req, res) => {
     })
 })
 
-router.post('/', (req, res) => {
+router.post('/', validateName, (req, res) => {
     User.insert(req.body)
     .then((data) => {
         res.status(200).json(data)
@@ -54,5 +54,15 @@ router.put('/:id', (req, res) => {
         res.status(500).json({message: error.message})
     })
 })
+
+function validateName(req, res, next) {
+    if(!req.body){
+        res.status(400).json('missing user data')
+    } else if (!req.body.name) {
+        res.status(400).json('Please fill out name field')
+    } else {
+        next()
+    }
+}
 
 module.exports = router;
