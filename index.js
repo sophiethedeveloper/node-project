@@ -1,7 +1,10 @@
 const express = require('express') // imports express
+require('dotenv').config()
 
 const server = express() /// allows our app to use express
 
-server.listen(5000, () => {
-    console.log('\n listening on port 5000 \n') // listens for a port
+const PORT = process.env.PORT || 5000;
+
+server.listen(PORT, () => {
+    console.log(`\n** Server listening on port ${PORT}`) // listens for a port
 })
